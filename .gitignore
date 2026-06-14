@@ -2,6 +2,7 @@ node_modules/
 data/*.json
 data/*.xlsx
 data/*.tmp
+data/archive/
 exports/
 .env
 .DS_Store

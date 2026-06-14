@@ -6,6 +6,9 @@
 
 - 上传固定格式的《合格供应商名录》Excel。
 - 按“供应商名称”去重，重复名称使用最新上传记录覆盖旧记录。
+- 每次上传都会存档，并在页面展示上传历史。
+- 支持下载历史上传文件。
+- 支持“删除历史清档”，需要连续点击两次才会清空历史和当前汇总数据。
 - 供应商代码为空不特殊处理，按上传内容保存。
 - 导入日期使用 Excel 里填写的内容。
 - 导出全部汇总数据。
@@ -26,7 +29,7 @@ http://localhost:5173
 
 ## 数据位置
 
-运行时数据保存在 `data/suppliers.json`，当前导出模板保存在 `data/template.xlsx`。这两个文件不会提交到 GitHub。
+运行时数据保存在 `data/suppliers.json`，当前导出模板保存在 `data/template.xlsx`，上传存档保存在 `data/archive/`。这些文件不会提交到 GitHub。
 
 默认空模板位于 `templates/qualified-suppliers-template.xlsx`。
 
