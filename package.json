@@ -1,0 +1,17 @@
+{
+  "name": "supplier-directory-heqing",
+  "version": "1.0.0",
+  "description": "Local supplier directory import/export tool",
+  "type": "module",
+  "scripts": {
+    "dev": "node src/server.js",
+    "start": "node src/server.js",
+    "test": "node scripts/self-test.js"
+  },
+  "dependencies": {
+    "adm-zip": "^0.5.16",
+    "express": "^4.19.2",
+    "lucide-static": "^0.468.0",
+    "multer": "^2.1.1"
+  }
+}
