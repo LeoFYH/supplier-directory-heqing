@@ -29,6 +29,11 @@ const upload = multer({
 });
 
 const PORT = Number(process.env.PORT || 5173);
+const EDITABLE_SUPPLIER_FIELDS = new Set(["creditLevel", "qualifiedStatus"]);
+
+function cleanEditableValue(value) {
+  return String(value ?? "").replace(/\r?\n/g, " ").trim();
+}
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "..", "public")));
@@ -81,6 +86,44 @@ app.post("/api/import", upload.single("file"), async (req, res, next) => {
     await saveActiveTemplate(req.file.buffer);
 
     res.json(nextStore.lastImport);
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.patch("/api/suppliers/:id", async (req, res, next) => {
+  try {
+    const { field, value } = req.body || {};
+    if (!EDITABLE_SUPPLIER_FIELDS.has(field)) {
+      res.status(400).json({ message: "这个字段不支持编辑。" });
+      return;
+    }
+
+    const store = await readStore();
+    const supplierIndex = store.suppliers.findIndex((supplier) => supplier.id === req.params.id);
+    if (supplierIndex === -1) {
+      res.status(404).json({ message: "没有找到这个供应商。" });
+      return;
+    }
+
+    const suppliers = store.suppliers.map((supplier, index) => {
+      if (index !== supplierIndex) return supplier;
+      return {
+        ...supplier,
+        [field]: cleanEditableValue(value),
+      };
+    });
+    const nextStore = {
+      ...store,
+      suppliers,
+      updatedAt: new Date().toISOString(),
+    };
+
+    await writeStore(nextStore);
+    res.json({
+      supplier: suppliers[supplierIndex],
+      updatedAt: nextStore.updatedAt,
+    });
   } catch (error) {
     next(error);
   }

@@ -4,6 +4,7 @@ data/*.xlsx
 data/*.tmp
 data/archive/
 exports/
+deploy.zip
 .env
 .DS_Store
 Thumbs.db

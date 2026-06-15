@@ -30,6 +30,13 @@
       </header>
 
       <input id="fileInput" type="file" accept=".xlsx,.xls" />
+      <datalist id="creditLevelOptions">
+        <option value="A+"></option>
+        <option value="A"></option>
+        <option value="B"></option>
+        <option value="C"></option>
+        <option value="D"></option>
+      </datalist>
 
       <section class="summary-grid" aria-label="供应商汇总">
         <div class="metric">
@@ -75,6 +82,17 @@
         <div class="history-list" id="historyList">
           <div class="history-empty">暂无上传历史</div>
         </div>
+      </section>
+
+      <section class="list-toolbar" aria-label="供应商搜索">
+        <label class="search-box" for="searchInput">
+          <img alt="" src="/icons/search.svg" />
+          <input id="searchInput" type="search" placeholder="搜索供应商名称、分类、材料、联系人、电话" />
+          <button class="search-clear" id="clearSearchButton" title="清空搜索" type="button">
+            <img alt="" src="/icons/x.svg" />
+          </button>
+        </label>
+        <span id="searchCount">0 条</span>
       </section>
 
       <section class="table-wrap" aria-label="供应商列表">
